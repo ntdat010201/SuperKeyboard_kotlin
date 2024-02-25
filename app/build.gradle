@@ -1,16 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
     namespace 'com.example.superkeyboardkotlin'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.superkeyboardkotlin"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -51,4 +52,8 @@ dependencies {
     implementation("io.insert-koin:koin-core:3.1.5")
     implementation("io.insert-koin:koin-android:3.1.5")
     implementation("io.insert-koin:koin-android-compat:3.1.5")
+
+    //MVVM
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.7.0")
 }
