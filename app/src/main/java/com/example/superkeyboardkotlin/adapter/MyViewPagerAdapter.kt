@@ -16,8 +16,8 @@ class MyViewPagerAdapter(fragmentActivity: FragmentActivity) :
         keyboardThemeFragment: KeyboardThemeFragment,
         settingFragment: SettingFragment
     ) {
-        this.keyboardThemeFragment = KeyboardThemeFragment()
-        this.settingFragment = SettingFragment()
+        this.keyboardThemeFragment = keyboardThemeFragment
+        this.settingFragment = settingFragment
     }
 
     override fun getItemCount(): Int {
