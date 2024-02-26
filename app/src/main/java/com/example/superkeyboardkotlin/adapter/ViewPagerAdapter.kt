@@ -4,20 +4,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.superkeyboardkotlin.fragment.KeyboardThemeFragment
+import com.example.superkeyboardkotlin.fragment.MineFragment
 import com.example.superkeyboardkotlin.fragment.SettingFragment
+import com.example.superkeyboardkotlin.fragment.ShopFragment
 
-class MyViewPagerAdapter(fragmentActivity: FragmentActivity) :
+class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
-    private lateinit var keyboardThemeFragment: KeyboardThemeFragment
-    private lateinit var settingFragment: SettingFragment
+    private lateinit var shopFragment: ShopFragment
+    private lateinit var mineFragment: MineFragment
 
     fun setFragments(
-        keyboardThemeFragment: KeyboardThemeFragment,
-        settingFragment: SettingFragment
+        shopFragment: ShopFragment,
+        mineFragment: MineFragment
     ) {
-        this.keyboardThemeFragment = keyboardThemeFragment
-        this.settingFragment = settingFragment
+        this.shopFragment = shopFragment
+        this.mineFragment = mineFragment
     }
 
     override fun getItemCount(): Int {
@@ -26,10 +28,9 @@ class MyViewPagerAdapter(fragmentActivity: FragmentActivity) :
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> keyboardThemeFragment
-            1 -> settingFragment
-            else -> keyboardThemeFragment
+            0 ->shopFragment
+            1 -> mineFragment
+            else -> shopFragment
         }
     }
-
 }
