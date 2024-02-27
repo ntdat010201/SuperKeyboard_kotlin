@@ -43,4 +43,8 @@
     <string name="upgrade_feature_description" />
     <string name="reset_settings_feature_name">Thiết lập lại các cài đặt</string>
     <string name="reset_settings_feature_description" />
+    <string name="Hello_sentence">Super Key chào bạn!</string>
+    <string name="Text_keyboard">Gõ thử bàn phím</string>
+    <string name="telex">TELEX</string>
+    <string name="vni">VNI</string>
 </resources>

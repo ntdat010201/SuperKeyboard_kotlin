@@ -10,7 +10,7 @@ import com.example.superkeyboardkotlin.fragment.setting.model.GroupFeatures
 
 class GroupFeaturesAdapter(private val context: Context, private val listGroupFeatures: ArrayList<GroupFeatures>): RecyclerView.Adapter<GroupFeaturesAdapter.GroupFeaturesViewHolder>() {
 
-    class GroupFeaturesViewHolder(val binding: ItemGroupFeaturesBinding): RecyclerView.ViewHolder(binding.root){
+    class GroupFeaturesViewHolder(private val binding: ItemGroupFeaturesBinding): RecyclerView.ViewHolder(binding.root){
         fun initData(context: Context, data: GroupFeatures) {
             binding.groupName.text = data.name
             binding.groupFeatures.apply {

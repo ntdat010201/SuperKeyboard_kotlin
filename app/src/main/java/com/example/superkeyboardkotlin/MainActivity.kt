@@ -28,7 +28,8 @@ class MainActivity : BaseActivity() {
 
     private fun initData() {
         myViewPagerAdapter = MyViewPagerAdapter(this)
-        myViewPagerAdapter!!.setFragments(keyboardThemeFragment, settingFragment)
+        //  myViewPagerAdapter!!.setFragments(keyboardThemeFragment, settingFragment)
+          myViewPagerAdapter!!.setFragments(keyboardThemeFragment, settingFragment)
 
         /* khởi tạo và set viewpager2 tablayout*/
         binding.viewPager.offscreenPageLimit = 2

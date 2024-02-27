@@ -1,19 +1,27 @@
 package com.example.superkeyboardkotlin.fragment.setting
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.LinearLayout.LayoutParams
 import androidx.constraintlayout.widget.Group
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.viewbinding.ViewBinding
 import com.example.superkeyboardkotlin.R
+import com.example.superkeyboardkotlin.databinding.DialogShowKeyboardBinding
 import com.example.superkeyboardkotlin.databinding.FragmentSettingBinding
 import com.example.superkeyboardkotlin.fragment.setting.adapter.GroupFeaturesAdapter
 import com.example.superkeyboardkotlin.fragment.setting.model.Feature
@@ -23,11 +31,10 @@ import com.example.superkeyboardkotlin.fragment.setting.viewmodel.GroupFeaturesV
 class SettingFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingBinding
-    private lateinit var viewModel: GroupFeaturesViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private val viewModel: GroupFeaturesViewModel by lazy {
+        ViewModelProvider(this)[GroupFeaturesViewModel::class.java]
     }
+    private var dialog: Dialog? = null
 
 
     override fun onCreateView(
@@ -35,38 +42,35 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false)
-        val groupFeaturesViewModel = GroupFeaturesViewModel()
-        binding.groupFeaturesViewModel = groupFeaturesViewModel
+        binding.groupFeaturesViewModel = GroupFeaturesViewModel()
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-
-        viewModel = ViewModelProvider(this).get(GroupFeaturesViewModel::class.java)
-        viewModel.listGroupFeaturesLiveData.value = initData()
-
-        viewModel.listGroupFeaturesLiveData.observe(this) { listGroupFeatures ->
-            initUi(listGroupFeatures)
-        }
+        viewModel.initData()
+        setObserve()
+        initListener()
     }
 
-    private fun initUi(listGroupFeatures: ArrayList<GroupFeatures>) {
 
-        binding.listGroupFeatures.apply {
-            layoutManager = LinearLayoutManager(requireContext()).apply {
-                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
+    private fun setObserve() {
+
+        viewModel.listGroupFeatures.observe(this@SettingFragment) { list->
+            if (list.isEmpty()){
+                viewModel.listGroupFeatures.value = getData()
             }
-            setHasFixedSize(true)
-            adapter = GroupFeaturesAdapter(
-                requireContext(),
-                listGroupFeatures
-            )
+            setListGroupFeatures(list)
         }
 
-
+        viewModel.isShowKeyboard.observe(this@SettingFragment) { isShow ->
+            if (isShow){
+                showKeyBoardLayout()
+            }
+        }
     }
-    private fun initData(): ArrayList<GroupFeatures> {
+
+    private fun getData(): ArrayList<GroupFeatures> {
         return ArrayList<GroupFeatures>().apply {
             add(
                 GroupFeatures(
@@ -185,6 +189,57 @@ class SettingFragment : Fragment() {
                     )
                 )
             )
+        }
+    }
+
+    private fun setListGroupFeatures(listGroupFeatures: ArrayList<GroupFeatures>) {
+        binding.listGroupFeatures.apply {
+            layoutManager = LinearLayoutManager(requireContext()).apply {
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
+            }
+            setHasFixedSize(true)
+            adapter = GroupFeaturesAdapter(
+                requireContext(),
+                listGroupFeatures
+            )
+        }
+    }
+
+    private fun initListener() {
+        binding.showKeyboard.setOnClickListener {
+            viewModel.showKeyBoardLayout()
+        }
+    }
+
+    private fun showKeyBoardLayout() {
+        dialog = Dialog(requireContext()).apply {
+            setContentView(R.layout.dialog_show_keyboard)
+
+            window?.apply {
+                setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+                setDimAmount(0.5f)
+                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            }
+
+            create()
+            show()
+        }
+
+        val showKeyboardBinding = DialogShowKeyboardBinding.inflate(LayoutInflater.from(requireContext()))
+        setListenerForSpecifiedLayout(showKeyboardBinding)
+    }
+
+    private fun setListenerForSpecifiedLayout(binding: ViewBinding) {
+        when (binding){
+
+            is DialogShowKeyboardBinding -> {
+
+                binding.icClose.setOnClickListener {
+                    dialog?.dismiss()
+                }
+
+            }
+
         }
     }
 }
