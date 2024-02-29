@@ -27,7 +27,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initData() {
-        setSupportActionBar()
         myViewPagerAdapter = MyViewPagerAdapter(this)
         //  myViewPagerAdapter!!.setFragments(keyboardThemeFragment, settingFragment)
           myViewPagerAdapter!!.setFragments(keyboardThemeFragment, settingFragment)
