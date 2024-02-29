@@ -3,9 +3,7 @@ package com.example.superkeyboardkotlin.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.superkeyboardkotlin.fragment.KeyboardThemeFragment
 import com.example.superkeyboardkotlin.fragment.MineFragment
-import com.example.superkeyboardkotlin.fragment.SettingFragment
 import com.example.superkeyboardkotlin.fragment.ShopFragment
 
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) :

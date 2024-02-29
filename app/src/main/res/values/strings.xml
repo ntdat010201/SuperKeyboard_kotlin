@@ -2,4 +2,54 @@
     <string name="app_name">Super Keyboard Kotlin</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Setting">Cài đặt</string>
+    <string name="Group_features_name">Tên nhóm chức năng</string>
+    <string name="Feature_name">Tên chức năng</string>
+    <string name="Feature_description">Mô tả chức năng</string>
+
+    <string name="account_group_features_name">Tài khoản</string>
+    <string name="account_feature_name">Tài khoản</string>
+    <string name="account_feature_description">Đăng nhập để sử dụng tất cả tính năng của Super Keyboard</string>
+    <string name="keyboard_group_features_name">Bàn phím</string>
+    <string name="keyboard_layout_feature_name">Bố cục bàn phím</string>
+    <string name="keyboard_layout_feature_description">Kích thước, chế độ bàn phím trên cao, một tay...</string>
+    <string name="key_feature_name">Phím</string>
+    <string name="key_feature_description">Hàng phím số, bật/ tắt các chức năng trên bàn phím...</string>
+    <string name="sound_and_animation_feature_name">Âm thanh và hiệu ứng</string>
+    <string name="sound_and_animation_feature_description">Âm thanh, rung, hiệu ứng</string>
+    <string name="key_type_group_features_name">Kiểu gõ</string>
+    <string name="key_type_feature_name">Kiểu gõ</string>
+    <string name="key_type_feature_description">Telex đầy đủ</string>
+    <string name="language_feature_name">Ngôn ngữ</string>
+    <string name="language_feature_description">Ngôn ngữ nhập và từ điển</string>
+    <string name="clever_keyboard_group_features_name">Bàn phím thông minh</string>
+    <string name="suggest_key_feature_name">Gợi ý từ</string>
+    <string name="suggest_key_feature_description" />
+    <string name="auto_correct_feature_name">Tự động sửa lỗi</string>
+    <string name="auto_correct_feature_description" />
+    <string name="swipe_key_feature_name">Vuốt phím</string>
+    <string name="swipe_key_feature_description" />
+    <string name="note_and_type_fast_group_features_name">Ghi chú và gõ tắt</string>
+    <string name="note_feature_name">Ghi chú</string>
+    <string name="note_feature_description" />
+    <string name="type_fast_feature_name">Gõ tắt</string>
+    <string name="type_fast_feature_description" />
+    <string name="clipboard_feature_name">Bảng nhớ tạm</string>
+    <string name="clipboard_feature_description" />
+    <string name="application_group_features_name">Ứng dụng</string>
+    <string name="info_and_feed_back_feature_name">Thông tin và góp ý</string>
+    <string name="info_and_feed_back_feature_description" />
+    <string name="upgrade_feature_name">Nâng cấp</string>
+    <string name="upgrade_feature_description" />
+    <string name="reset_settings_feature_name">Thiết lập lại các cài đặt</string>
+    <string name="reset_settings_feature_description" />
+    <string name="Hello_sentence">Super Key chào bạn!</string>
+    <string name="Text_keyboard">Gõ thử bàn phím</string>
+    <string name="telex">TELEX</string>
+    <string name="vni">VNI</string>
+
+    <string name="name_topic">tên chủ đề</string>
+    <string name="nameKeyboard">tên bàn phím</string>
+    <string name="topic_keyboard">Chủ đề bàn phím</string>
+
 </resources>

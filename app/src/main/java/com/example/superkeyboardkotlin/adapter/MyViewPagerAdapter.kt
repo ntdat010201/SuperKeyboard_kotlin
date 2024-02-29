@@ -1,16 +1,20 @@
 package com.example.superkeyboardkotlin.adapter
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.superkeyboardkotlin.fragment.KeyboardThemeFragment
-import com.example.superkeyboardkotlin.fragment.SettingFragment
+import com.example.superkeyboardkotlin.fragment.setting.SettingFragment
 
-class MyViewPagerAdapter(fragmentActivity: FragmentActivity) :
+class MyViewPagerAdapter(
+    fragmentActivity: FragmentActivity
+) :
     FragmentStateAdapter(fragmentActivity) {
 
-    private lateinit var keyboardThemeFragment: KeyboardThemeFragment
-    private lateinit var settingFragment: SettingFragment
+    private var keyboardThemeFragment: KeyboardThemeFragment? = null
+    private var settingFragment: SettingFragment? = null
 
     fun setFragments(
         keyboardThemeFragment: KeyboardThemeFragment,
@@ -26,9 +30,9 @@ class MyViewPagerAdapter(fragmentActivity: FragmentActivity) :
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> keyboardThemeFragment
-            1 -> settingFragment
-            else -> keyboardThemeFragment
+            0 -> keyboardThemeFragment!!
+            1 -> settingFragment!!
+            else -> keyboardThemeFragment!!
         }
     }
 

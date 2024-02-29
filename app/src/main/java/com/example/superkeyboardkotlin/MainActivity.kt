@@ -6,7 +6,7 @@ import com.example.foodappkotlin.base.BaseActivity
 import com.example.superkeyboardkotlin.adapter.MyViewPagerAdapter
 import com.example.superkeyboardkotlin.databinding.ActivityMainBinding
 import com.example.superkeyboardkotlin.fragment.KeyboardThemeFragment
-import com.example.superkeyboardkotlin.fragment.SettingFragment
+import com.example.superkeyboardkotlin.fragment.setting.SettingFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 
@@ -27,8 +27,10 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initData() {
+        setSupportActionBar()
         myViewPagerAdapter = MyViewPagerAdapter(this)
-        myViewPagerAdapter!!.setFragments(keyboardThemeFragment, settingFragment)
+        //  myViewPagerAdapter!!.setFragments(keyboardThemeFragment, settingFragment)
+          myViewPagerAdapter!!.setFragments(keyboardThemeFragment, settingFragment)
 
         /* khởi tạo và set viewpager2 tablayout*/
         binding.viewPager.offscreenPageLimit = 2
