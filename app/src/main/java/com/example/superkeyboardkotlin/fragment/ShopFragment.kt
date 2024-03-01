@@ -36,7 +36,6 @@ class ShopFragment : Fragment() {
 
             shopAdapter = RcvShopAdapter(data as ArrayList<RcvModelShop>, requireContext())
             binding.rcvShop.adapter = shopAdapter
-            binding.rcvShop
         }
     }
 }

@@ -17,6 +17,12 @@ class ShopViewModel : ViewModel() {
         mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
         mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
         mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
+        mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
+        mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
+        mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
+        mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
+        mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
+        mListShop.add(RcvModelShop(R.drawable.ic_launcher_background, "namenamename"))
 
         mListShopLiveData.value = mListShop
     }
