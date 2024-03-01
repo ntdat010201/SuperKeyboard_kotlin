@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.superkeyboardkotlin.R
 import com.example.superkeyboardkotlin.adapter.PhotoAdapter
 import com.example.superkeyboardkotlin.adapter.RcvShopAdapter
 import com.example.superkeyboardkotlin.databinding.FragmentShopBinding
@@ -27,7 +26,7 @@ class ShopFragment : Fragment() {
     private lateinit var photoAdapter: PhotoAdapter
     private lateinit var photoViewModel: PhotoViewModel
 
-    private lateinit var mListPhoto: List<Photo>
+    private var mListPhoto: List<Photo>? = null
     private var mTimer: Timer? = null
 
     override fun onCreateView(
@@ -67,7 +66,7 @@ class ShopFragment : Fragment() {
 
             autoSlideImages() /*tự động chuyển ảnh sau n thời gian*/
 
-            photoAdapter = PhotoAdapter(requireContext(), mListPhoto)
+            photoAdapter = PhotoAdapter(requireContext(), mListPhoto!!)
             binding.viewPager.adapter = photoAdapter
 
             binding.circleIndicator.setViewPager(binding.viewPager)
@@ -76,7 +75,7 @@ class ShopFragment : Fragment() {
     }
 
     private fun autoSlideImages() {
-        if (mListPhoto.isEmpty()) {
+        if (mListPhoto!!.isEmpty()) {
             return
         }
         if (mTimer == null) {
@@ -86,7 +85,7 @@ class ShopFragment : Fragment() {
             override fun run() {
                 Handler(Looper.getMainLooper()).post(Runnable {
                     var currentItem: Int = binding.viewPager.currentItem
-                    val totalItem = mListPhoto.size - 1
+                    val totalItem = mListPhoto!!.size - 1
                     if (currentItem < totalItem) {
                         currentItem++
                         binding.viewPager.currentItem = currentItem

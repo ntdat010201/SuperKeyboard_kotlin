@@ -33,7 +33,7 @@ class MainActivity : BaseActivity() {
 
         /* khởi tạo và set viewpager2 tablayout*/
         binding.viewPager.offscreenPageLimit = 2
-
+        binding.viewPager.isUserInputEnabled = false
         binding.viewPager.adapter = myViewPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
@@ -43,7 +43,8 @@ class MainActivity : BaseActivity() {
         }.attach()
     }
 
-    private fun initView() {}
+    private fun initView() {
+    }
 
     private fun initListener() {}
 }
