@@ -1,6 +1,7 @@
 package com.example.superkeyboardkotlin.fragment.setting
 
 import android.app.Dialog
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,7 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
+import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.Group
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.res.ResourcesCompat.ThemeCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
@@ -49,6 +54,7 @@ class SettingFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         viewModel.initData()
+        dialog = showKeyBoardLayout()
         setObserve()
         initListener()
     }
@@ -56,16 +62,18 @@ class SettingFragment : Fragment() {
 
     private fun setObserve() {
 
-        viewModel.listGroupFeatures.observe(this@SettingFragment) { list->
-            if (list.isEmpty()){
+        viewModel.listGroupFeatures.observe(this@SettingFragment) { list ->
+            if (list.isEmpty()) {
                 viewModel.listGroupFeatures.value = getData()
             }
             setListGroupFeatures(list)
         }
 
         viewModel.isShowKeyboard.observe(this@SettingFragment) { isShow ->
-            if (isShow){
-                showKeyBoardLayout()
+            if (isShow) {
+                dialog?.show()
+            } else {
+                dialog?.dismiss()
             }
         }
     }
@@ -211,35 +219,40 @@ class SettingFragment : Fragment() {
         }
     }
 
-    private fun showKeyBoardLayout() {
-        dialog = Dialog(requireContext()).apply {
+    private fun showKeyBoardLayout(): Dialog {
+
+        val dialog = Dialog(requireContext()).apply {
+           // val showKeyboardBinding = DialogShowKeyboardBinding.inflate(LayoutInflater.from(requireContext()))
             setContentView(R.layout.dialog_show_keyboard)
-
-            window?.apply {
-                setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-                setDimAmount(0.5f)
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            }
-
-            create()
-            show()
         }
 
-        val showKeyboardBinding = DialogShowKeyboardBinding.inflate(LayoutInflater.from(requireContext()))
-        setListenerForSpecifiedLayout(showKeyboardBinding)
-    }
-
-    private fun setListenerForSpecifiedLayout(binding: ViewBinding) {
-        when (binding){
-
-            is DialogShowKeyboardBinding -> {
-
-                binding.icClose.setOnClickListener {
-                    dialog?.dismiss()
-                }
-
-            }
-
+        dialog.window?.apply {
+            setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+            setDimAmount(0.5f)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
+
+        dialog.findViewById<TextView>(R.id.Telex_type).setOnClickListener { view ->
+//                    val tw = view as TextView
+//                    tw.setBackgroundResource(R.drawable.background_btn_key_type_selected)
+//                    tw.setTextColor(resources.getColor(R.color.white))
+            Toast.makeText(requireContext(), "Telex is clicked!", Toast.LENGTH_SHORT).show()
+        }
+
+        return dialog
     }
+
+//    private fun setListenerForDialog(binding: ViewBinding) {
+//        when (binding) {
+//            is DialogShowKeyboardBinding -> {
+//
+//               // binding.TelexType.setOnClickListener { view ->
+////                    val tw = view as TextView
+////                    tw.setBackgroundResource(R.drawable.background_btn_key_type_selected)
+////                    tw.setTextColor(resources.getColor(R.color.white))
+//                  //  Toast.makeText(requireContext(), "Telex is clicked!", Toast.LENGTH_SHORT).show()
+//                //}
+//            }
+//        }
+    //}
 }
