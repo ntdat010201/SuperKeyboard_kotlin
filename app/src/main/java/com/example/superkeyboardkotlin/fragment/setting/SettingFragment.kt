@@ -1,30 +1,27 @@
 package com.example.superkeyboardkotlin.fragment.setting
 
 import android.app.Dialog
-import android.content.res.Resources
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.Group
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.content.res.ResourcesCompat.ThemeCompat
+import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import androidx.viewbinding.ViewBinding
 import com.example.superkeyboardkotlin.R
 import com.example.superkeyboardkotlin.databinding.DialogShowKeyboardBinding
 import com.example.superkeyboardkotlin.databinding.FragmentSettingBinding
@@ -220,10 +217,10 @@ class SettingFragment : Fragment() {
     }
 
     private fun showKeyBoardLayout(): Dialog {
+        val showKeyboardBinding = DialogShowKeyboardBinding.inflate(LayoutInflater.from(requireContext()))
 
         val dialog = Dialog(requireContext()).apply {
-           // val showKeyboardBinding = DialogShowKeyboardBinding.inflate(LayoutInflater.from(requireContext()))
-            setContentView(R.layout.dialog_show_keyboard)
+            setContentView(showKeyboardBinding.root)
         }
 
         dialog.window?.apply {
@@ -232,11 +229,37 @@ class SettingFragment : Fragment() {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
-        dialog.findViewById<TextView>(R.id.Telex_type).setOnClickListener { view ->
-//                    val tw = view as TextView
-//                    tw.setBackgroundResource(R.drawable.background_btn_key_type_selected)
-//                    tw.setTextColor(resources.getColor(R.color.white))
-            Toast.makeText(requireContext(), "Telex is clicked!", Toast.LENGTH_SHORT).show()
+        showKeyboardBinding.apply {
+            icClose.setOnClickListener { view ->
+                dialog.dismiss()
+            }
+
+            TelexType.setOnClickListener { view ->
+                switchBtn.visibility = VISIBLE
+                inputFastTitle.visibility = VISIBLE
+
+                val tw  = view as TextView
+                tw.setBackgroundResource(R.drawable.background_btn_key_type_selected)
+                tw.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
+                VniType.setBackgroundResource(R.drawable.background_btn_key_type_not_selected)
+                VniType.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+            }
+
+            VniType.setOnClickListener { view ->
+                switchBtn.visibility = INVISIBLE
+                inputFastTitle.visibility = INVISIBLE
+
+                val tw  = view as TextView
+                tw.setBackgroundResource(R.drawable.background_btn_key_type_selected)
+                tw.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
+                TelexType.setBackgroundResource(R.drawable.background_btn_key_type_not_selected)
+                TelexType.setTextColor(ContextCompat.getColor(requireContext(), R.color.blue))
+            }
+
+            inputText.requestFocus()
+            dialog.window?.let { WindowCompat.getInsetsController(it, inputText).show(WindowInsetsCompat.Type.ime()) }
         }
 
         return dialog
