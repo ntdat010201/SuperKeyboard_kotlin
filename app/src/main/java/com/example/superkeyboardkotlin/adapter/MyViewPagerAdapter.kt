@@ -1,17 +1,14 @@
 package com.example.superkeyboardkotlin.adapter
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.superkeyboardkotlin.fragment.KeyboardThemeFragment
 import com.example.superkeyboardkotlin.fragment.setting.SettingFragment
 
 class MyViewPagerAdapter(
     fragmentActivity: FragmentActivity
-) :
-    FragmentStateAdapter(fragmentActivity) {
+) : FragmentStateAdapter(fragmentActivity) {
 
     private var keyboardThemeFragment: KeyboardThemeFragment? = null
     private var settingFragment: SettingFragment? = null

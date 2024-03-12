@@ -9,25 +9,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.superkeyboardkotlin.adapter.ListDataRcvShopAdapter
 import com.example.superkeyboardkotlin.adapter.PhotoAdapter
-import com.example.superkeyboardkotlin.adapter.RcvShopAdapter
 import com.example.superkeyboardkotlin.databinding.FragmentShopBinding
-import com.example.superkeyboardkotlin.model.Photo
-import com.example.superkeyboardkotlin.model.RcvModelShop
+import com.example.superkeyboardkotlin.model.ModelPhoto
+import com.example.superkeyboardkotlin.viewmodel.DataRcvShopViewModel
 import com.example.superkeyboardkotlin.viewmodel.PhotoViewModel
-import com.example.superkeyboardkotlin.viewmodel.ShopViewModel
 import java.util.*
 
 class ShopFragment : Fragment() {
     private lateinit var binding: FragmentShopBinding
 
-    private lateinit var shopAdapter: RcvShopAdapter
-    private lateinit var shopViewModel: ShopViewModel
     private lateinit var photoAdapter: PhotoAdapter
     private lateinit var photoViewModel: PhotoViewModel
-
-    private var mListPhoto: List<Photo>? = null
+    private var mListModelPhoto: List<ModelPhoto>? = null
     private var mTimer: Timer? = null
+
+    private lateinit var listDataRcvShopAdapter: ListDataRcvShopAdapter
+    private lateinit var dataRcvShopViewModel: DataRcvShopViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -35,26 +36,25 @@ class ShopFragment : Fragment() {
         binding = FragmentShopBinding.inflate(LayoutInflater.from(requireContext()))
         initData()
         initView()
+        initListener()
         return binding.root
     }
-
-    private fun initData() {
-
-    }
+    private fun initData() {}
 
     private fun initView() {
 
         // recycleView item chủ đề trong shopFragment
         binding.rcvShop.apply {
+            val linearLayoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            layoutManager = linearLayoutManager
+            isFocusable = false
 
-            val gridLayoutManager = GridLayoutManager(requireContext(), 2)
-            layoutManager = gridLayoutManager
+            dataRcvShopViewModel =
+                ViewModelProvider(requireActivity())[DataRcvShopViewModel::class.java]
+            dataRcvShopViewModel.getListRcvShopLiveData().observe(viewLifecycleOwner) { data ->
 
-            shopViewModel = ViewModelProvider(requireActivity())[ShopViewModel::class.java]
-            shopViewModel.getListShopLiveData().observe(viewLifecycleOwner) { data ->
-
-                shopAdapter = RcvShopAdapter(data as ArrayList<RcvModelShop>, requireContext())
-                adapter = shopAdapter
+                listDataRcvShopAdapter = ListDataRcvShopAdapter(data, requireContext())
+                adapter = listDataRcvShopAdapter
             }
         }
 
@@ -62,11 +62,11 @@ class ShopFragment : Fragment() {
         photoViewModel = ViewModelProvider(requireActivity())[PhotoViewModel::class.java]
         photoViewModel.getListPhotoLiveData().observe(viewLifecycleOwner) { data ->
 
-            mListPhoto = data
+            mListModelPhoto = data
 
             autoSlideImages() /*tự động chuyển ảnh sau n thời gian*/
 
-            photoAdapter = PhotoAdapter(requireContext(), mListPhoto!!)
+            photoAdapter = PhotoAdapter(requireContext(), mListModelPhoto!!)
             binding.viewPager.adapter = photoAdapter
 
             binding.circleIndicator.setViewPager(binding.viewPager)
@@ -75,7 +75,7 @@ class ShopFragment : Fragment() {
     }
 
     private fun autoSlideImages() {
-        if (mListPhoto!!.isEmpty()) {
+        if (mListModelPhoto!!.isEmpty()) {
             return
         }
         if (mTimer == null) {
@@ -85,7 +85,7 @@ class ShopFragment : Fragment() {
             override fun run() {
                 Handler(Looper.getMainLooper()).post(Runnable {
                     var currentItem: Int = binding.viewPager.currentItem
-                    val totalItem = mListPhoto!!.size - 1
+                    val totalItem = mListModelPhoto!!.size - 1
                     if (currentItem < totalItem) {
                         currentItem++
                         binding.viewPager.currentItem = currentItem
@@ -106,6 +106,9 @@ class ShopFragment : Fragment() {
             mTimer!!.cancel()
             mTimer = null
         }
+    }
+
+    private fun initListener() {
     }
 
 

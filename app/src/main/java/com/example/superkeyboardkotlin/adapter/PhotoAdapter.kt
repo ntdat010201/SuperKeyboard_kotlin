@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.example.superkeyboardkotlin.R
-import com.example.superkeyboardkotlin.model.Photo
+import com.example.superkeyboardkotlin.model.ModelPhoto
 import com.example.superkeyboardkotlin.showImgSong
 
 class PhotoAdapter(
     private var mContext: Context,
-    private var mListPhoto: List<Photo>
+    private var mListModelPhoto: List<ModelPhoto>
 ) : PagerAdapter() {
     override fun getCount(): Int {
-        if (mListPhoto != null) {
-            return mListPhoto.size
+        if (mListModelPhoto != null) {
+            return mListModelPhoto.size
         }
         return 0
     }
@@ -29,7 +29,7 @@ class PhotoAdapter(
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
 //        val binding = ItemCircleindicatorBinding.inflate(LayoutInflater.from(container.context),container,false)
 //
-//        val photo = mListPhoto[position]
+//        val photo = mListModelPhoto[position]
 //
 //        photo.resourceId?.let { showImgSong(mContext, it, binding.imgPhoto) }
 //        //add view vào ViewGroup
@@ -41,7 +41,7 @@ class PhotoAdapter(
             .inflate(R.layout.item_circleindicator, container, false)
         val imgPhoto: ImageView = view.findViewById(R.id.img_photo)
 
-        val photo = mListPhoto[position]
+        val photo = mListModelPhoto[position]
 
         photo.resourceId?.let { showImgSong(mContext, it, imgPhoto) }
         //add view vào ViewGroup

@@ -7,18 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
-import androidx.constraintlayout.widget.Group
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.viewbinding.ViewBinding
 import com.example.superkeyboardkotlin.R
 import com.example.superkeyboardkotlin.databinding.DialogShowKeyboardBinding
@@ -43,27 +37,29 @@ class SettingFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false)
         binding.groupFeaturesViewModel = GroupFeaturesViewModel()
-        return binding.root
-    }
 
-    override fun onStart() {
-        super.onStart()
         viewModel.initData()
         setObserve()
         initListener()
+
+        return binding.root
     }
+
+//    override fun onStart() {
+//        super.onStart()
+//    }
 
 
     private fun setObserve() {
-        viewModel.listGroupFeatures.observe(this@SettingFragment) { list->
-            if (list.isEmpty()){
+        viewModel.listGroupFeatures.observe(viewLifecycleOwner) { list ->
+            if (list.isEmpty()) {
                 viewModel.listGroupFeatures.value = getData()
             }
             setListGroupFeatures(list)
         }
 
-        viewModel.isShowKeyboard.observe(this@SettingFragment) { isShow ->
-            if (isShow){
+        viewModel.isShowKeyboard.observe(viewLifecycleOwner) { isShow ->
+            if (isShow) {
                 showKeyBoardLayout()
             }
         }
@@ -210,6 +206,7 @@ class SettingFragment : Fragment() {
         }
     }
 
+
     private fun showKeyBoardLayout() {
         dialog = Dialog(requireContext()).apply {
             setContentView(R.layout.dialog_show_keyboard)
@@ -223,22 +220,25 @@ class SettingFragment : Fragment() {
             create()
             show()
         }
-
-        val showKeyboardBinding = DialogShowKeyboardBinding.inflate(LayoutInflater.from(requireContext()))
+        val showKeyboardBinding =
+            DialogShowKeyboardBinding.inflate(LayoutInflater.from(requireContext()))
         setListenerForSpecifiedLayout(showKeyboardBinding)
     }
 
     private fun setListenerForSpecifiedLayout(binding: ViewBinding) {
-        when (binding){
+        when (binding) {
 
             is DialogShowKeyboardBinding -> {
 
                 binding.icClose.setOnClickListener {
                     dialog?.dismiss()
+
                 }
 
             }
 
         }
     }
+
+
 }

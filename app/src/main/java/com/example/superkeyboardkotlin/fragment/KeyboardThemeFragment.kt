@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.palette.graphics.Palette
+import com.example.superkeyboardkotlin.R
 import com.example.superkeyboardkotlin.adapter.ViewPagerAdapter
 import com.example.superkeyboardkotlin.databinding.FragmentKeyboardThemeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
-import androidx.palette.graphics.Palette
-import com.example.superkeyboardkotlin.R
 
 class KeyboardThemeFragment : Fragment() {
     private lateinit var binding: FragmentKeyboardThemeBinding
@@ -46,9 +46,9 @@ class KeyboardThemeFragment : Fragment() {
             }
         }.attach()
 
-        for (i in 0..1){
-            val textView = LayoutInflater.from(requireContext()).inflate(R.layout.tab_title,null)
-            binding.tabLayout.getTabAt(i)?.customView=textView
+        for (i in 0..1) {
+            val textView = LayoutInflater.from(requireContext()).inflate(R.layout.tab_title, null)
+            binding.tabLayout.getTabAt(i)?.customView = textView
         }
     }
 
@@ -57,29 +57,30 @@ class KeyboardThemeFragment : Fragment() {
 //        setTabLayoutAnimation()
 
     }
+
     private fun initListener() {
     }
 
     private fun setToolbar() {
         (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
-        if ((activity as? AppCompatActivity)?.supportActionBar !=null){
+        if ((activity as? AppCompatActivity)?.supportActionBar != null) {
             (activity as? AppCompatActivity)?.supportActionBar!!.title = "tetete"
             (activity as? AppCompatActivity)?.supportActionBar!!.setIcon(R.drawable.ic_search)
         }
     }
 
     private fun setTabLayoutAnimation() {
-       val bitmap  = BitmapFactory.decodeResource(resources, R.drawable.image_test)
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.image_test)
         Palette.from(bitmap).generate(Palette.PaletteAsyncListener { palette ->
 
-            val myColor : Int = palette!!.getVibrantColor(resources.getColor(androidx.appcompat.R.color.error_color_material_dark))
-            val myColorDark : Int = palette.getVibrantColor(resources.getColor(androidx.appcompat.R.color.foreground_material_light))
+            val myColor: Int =
+                palette!!.getVibrantColor(resources.getColor(androidx.appcompat.R.color.error_color_material_dark))
+            val myColorDark: Int =
+                palette.getVibrantColor(resources.getColor(androidx.appcompat.R.color.foreground_material_light))
             binding.collapsingToolbarLayout.setContentScrimColor(myColor)
             binding.collapsingToolbarLayout.setStatusBarScrimColor(myColorDark)
         })
     }
-
-
 
 
 }

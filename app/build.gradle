@@ -65,4 +65,6 @@ dependencies {
     //CircleIndicator
     implementation 'me.relex:circleindicator:2.1.6'
 
+    implementation 'com.google.android.material:material:1.2.1'
+
 }

@@ -1,6 +1,6 @@
 package com.example.superkeyboardkotlin.model
 
-data class Photo(
+data class ModelPhoto(
      var resourceId : Int? = null
 )
 
